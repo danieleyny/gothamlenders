@@ -22,7 +22,7 @@
         * { box-sizing: border-box; }
         
         html {
-            scroll-behavior: smooth; /* Enables smooth scrolling for all anchor links */
+            scroll-behavior: smooth;
         }
 
         body { 
@@ -41,11 +41,11 @@
 
         /* --- NAVIGATION --- */
         nav { 
-            padding: 20px 8%; display: flex; justify-content: space-between; align-items: center; 
+            padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; 
             background: rgba(3, 4, 5, 0.85); backdrop-filter: blur(20px);
             position: sticky; top: 0; z-index: 2000; border-bottom: 1px solid rgba(197, 160, 89, 0.1); 
         }
-        .logo { font-size: 1.4rem; color: var(--gold-primary); text-decoration: none; z-index: 2100; font-weight: 700; }
+        .logo { font-size: clamp(1.1rem, 4vw, 1.4rem); color: var(--gold-primary); text-decoration: none; z-index: 2100; font-weight: 700; }
         .logo span { color: white; font-weight: 400; font-style: italic; }
         
         .nav-links { display: flex; gap: 35px; }
@@ -76,8 +76,8 @@
 
         /* --- HERO --- */
         .hero {
-            height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; padding: 0 10%; background: #030405; position: relative; overflow: hidden;
+            min-height: 80vh; padding: 100px 5%; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; position: relative; overflow: hidden;
         }
         .hero-bg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -86,83 +86,100 @@
             animation: heroZoom 30s infinite alternate;
         }
         @keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.2); } }
-        .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 20px; z-index: 10; font-weight: 700; line-height: 1.1; color: #fff; }
-        .hero p { color: var(--gold-primary); font-size: 0.85rem; letter-spacing: 5px; z-index: 10; text-transform: uppercase; margin-bottom: 40px; font-weight: 400; }
+        .hero h1 { font-size: clamp(2.2rem, 8vw, 4.5rem); margin-bottom: 20px; z-index: 10; font-weight: 700; line-height: 1.1; color: #fff; }
+        .hero p { color: var(--gold-primary); font-size: clamp(0.7rem, 2.5vw, 0.85rem); letter-spacing: 5px; z-index: 10; text-transform: uppercase; margin-bottom: 40px; font-weight: 400; }
         
+        /* Hero Consultation Button Responsive */
         .btn { 
-            position: relative; padding: 22px 60px; color: white; text-decoration: none; 
-            font-size: 0.75rem; letter-spacing: 3px; border: 1px solid var(--gold-primary);
+            position: relative; padding: 18px clamp(30px, 8vw, 60px); color: white; text-decoration: none; 
+            font-size: clamp(0.65rem, 2vw, 0.75rem); letter-spacing: 3px; border: 1px solid var(--gold-primary);
             overflow: hidden; transition: 0.5s; z-index: 10; text-transform: uppercase; font-weight: 600;
         }
         .btn:hover { background: var(--gold-primary); color: #000; box-shadow: 0 0 30px rgba(197, 160, 89, 0.3); }
 
-        /* --- STATS --- */
-        .stats-bar { display: grid; grid-template-columns: repeat(3, 1fr); padding: 80px 10%; background: #000; border-bottom: 1px solid var(--border); }
+        /* --- STATS BAR FIX --- */
+        .stats-bar { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            padding: 60px 5%; 
+            background: #000; 
+            border-bottom: 1px solid var(--border);
+            gap: 40px;
+        }
         .stat-item { text-align: center; }
-        .stat-number { font-size: 3.5rem; color: var(--gold-primary); display: block; margin-bottom: 10px; font-weight: 700; }
-        .stat-label { font-size: 0.65rem; letter-spacing: 2px; color: var(--text-dim); text-transform: uppercase; }
+        .stat-number { font-size: clamp(2.5rem, 6vw, 3.5rem); color: var(--gold-primary); display: block; margin-bottom: 10px; font-weight: 700; }
+        .stat-label { font-size: 0.65rem; letter-spacing: 2px; color: var(--text-dim); text-transform: uppercase; padding: 0 10px; }
 
         /* --- SECTIONS --- */
-        .section-padding { padding: 120px 10%; }
-        .section-header { text-align: center; margin-bottom: 80px; }
-        .section-header h2 { font-size: 3rem; font-weight: 700; margin-bottom: 10px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        .section-padding { padding: clamp(60px, 10vh, 120px) 5%; }
+        .section-header { text-align: center; margin-bottom: clamp(40px, 8vh, 80px); }
+        .section-header h2 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; margin-bottom: 10px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
 
-        /* --- CASE CARDS (Tombstones) --- */
+        /* --- CASE CARDS --- */
         .case-card { 
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
-            padding: 45px 35px; 
+            padding: clamp(30px, 5vw, 45px) clamp(20px, 4vw, 35px); 
             border: 1px solid rgba(197, 160, 89, 0.15); 
             transition: var(--transition);
         }
-        .case-card:hover { transform: translateY(-10px); border-color: var(--gold-primary); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
         .case-badge {
-            font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase;
+            font-size: 0.6rem; letter-spacing: 1.5px; text-transform: uppercase;
             color: var(--gold-primary); border: 1px solid var(--gold-deep);
-            padding: 4px 12px; margin-bottom: 25px; display: inline-block;
+            padding: 4px 12px; margin-bottom: 20px; display: inline-block;
         }
-        .case-title { font-size: 1.6rem; color: #fff; margin-bottom: 15px; font-weight: 700; }
-        .case-text { font-size: 0.95rem; color: var(--text-dim); line-height: 1.8; }
+        .case-title { font-size: clamp(1.3rem, 4vw, 1.6rem); color: #fff; margin-bottom: 15px; font-weight: 700; }
+        .case-text { font-size: 0.9rem; color: var(--text-dim); line-height: 1.7; }
 
         /* --- FAQ STYLING --- */
         .faq-container { max-width: 900px; margin: 0 auto; }
-        .faq-item { border-bottom: 1px solid var(--border); padding: 30px 0; cursor: pointer; transition: 0.3s; }
-        .faq-item:hover { background: rgba(197, 160, 89, 0.02); padding-left: 15px; padding-right: 15px; border-bottom-color: var(--gold-deep); }
-        .faq-question { display: flex; justify-content: space-between; font-size: 0.85rem; letter-spacing: 2px; font-weight: 600; text-transform: uppercase; color: #fff; }
-        .faq-answer { max-height: 0; overflow: hidden; transition: 0.5s; color: var(--text-dim); line-height: 1.8; font-size: 0.9rem; }
-        .faq-item.active .faq-answer { max-height: 400px; padding-top: 25px; }
-        .faq-plus { color: var(--gold-primary); font-size: 1.2rem; transition: 0.4s; }
-        .faq-item.active .faq-plus { transform: rotate(45deg); }
+        .faq-item { border-bottom: 1px solid var(--border); padding: 25px 0; cursor: pointer; }
+        .faq-question { display: flex; justify-content: space-between; font-size: 0.8rem; letter-spacing: 1.5px; font-weight: 600; text-transform: uppercase; color: #fff; gap: 15px; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: 0.5s; color: var(--text-dim); line-height: 1.6; font-size: 0.85rem; }
+        .faq-item.active .faq-answer { max-height: 400px; padding-top: 20px; }
+        .faq-plus { color: var(--gold-primary); font-size: 1.2rem; flex-shrink: 0; }
 
-        /* --- CONTACT STYLING --- */
-        .contact-section { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; background: #000; align-items: start; }
-        .form-container { background: var(--card-bg); padding: 60px; border: 1px solid var(--border); position: relative; }
-        .form-label { display: block; margin-bottom: 10px; font-size: 0.7rem; color: var(--gold-primary); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+        /* --- CONTACT SECTION RESPONSIVE FIX --- */
+        .contact-section { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 60px; 
+            background: #000; 
+            align-items: start; 
+        }
+        .form-container { background: var(--card-bg); padding: clamp(30px, 6vw, 60px); border: 1px solid var(--border); width: 100%; }
+        .form-label { display: block; margin-bottom: 8px; font-size: 0.65rem; color: var(--gold-primary); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
         
         input, select, textarea { 
-            width: 100%; padding: 15px 0; background: transparent; border: none; 
+            width: 100%; padding: 12px 0; background: transparent; border: none; 
             border-bottom: 1px solid var(--border); color: white; font-family: 'Montserrat'; 
-            margin-bottom: 40px; transition: 0.3s; font-size: 1rem;
+            margin-bottom: 30px; transition: 0.3s; font-size: 0.95rem; border-radius: 0;
         }
-        textarea { height: 120px; resize: none; border: 1px solid var(--border); padding: 15px; border-bottom: 2px solid var(--border); }
+        textarea { height: 100px; resize: none; border: 1px solid var(--border); padding: 10px; border-bottom: 2px solid var(--border); }
         input:focus, textarea:focus { outline: none; border-bottom-color: var(--gold-primary); }
         
         .submit-btn {
-            width: 100%; padding: 22px; background: transparent; 
+            width: 100%; padding: 18px; background: transparent; 
             border: 1px solid var(--gold-primary); color: var(--gold-primary); 
-            font-family: 'Playfair Display'; letter-spacing: 3px; font-size: 0.9rem;
+            font-family: 'Playfair Display'; letter-spacing: 3px; font-size: 0.85rem;
             text-transform: uppercase; font-weight: 700; cursor: pointer; transition: 0.4s;
         }
         .submit-btn:hover { background: var(--gold-primary); color: #000; }
 
-        footer { padding: 80px 8% 40px; text-align: center; border-top: 1px solid var(--border); font-size: 0.7rem; letter-spacing: 2px; color: var(--text-dim); }
+        footer { padding: 60px 5%; text-align: center; border-top: 1px solid var(--border); font-size: 0.65rem; letter-spacing: 2px; color: var(--text-dim); line-height: 1.5; }
 
         @media (max-width: 968px) {
             .menu-trigger { display: block; }
             .nav-links { display: none; }
-            .contact-section { grid-template-columns: 1fr; text-align: center; }
-            .form-container { padding: 40px 20px; }
+            .contact-section { grid-template-columns: 1fr; }
+            .contact-section h2 { font-size: clamp(2.5rem, 10vw, 4rem); }
+            .stats-bar { padding: 40px 5%; }
+        }
+
+        @media (max-width: 480px) {
+            .section-padding { padding: 40px 5%; }
+            .grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -213,17 +230,17 @@
     <section id="services" class="section-padding reveal">
         <div class="section-header"><h2>Core Capabilities</h2></div>
         <div class="grid">
-            <div class="service-card reveal" style="background: var(--card-bg); padding: 50px 40px; border: 1px solid var(--border);">
+            <div class="service-card reveal" style="background: var(--card-bg); padding: 40px; border: 1px solid var(--border);">
                 <h3 style="color: var(--gold-primary); margin-bottom: 20px;">Asset Acquisition</h3>
-                <p style="line-height: 1.8; color: var(--text-dim);">Swift acquisition of NPL portfolios. We provide immediate liquidity to sellers through professional, data-driven valuations.</p>
+                <p style="line-height: 1.8; color: var(--text-dim); font-size: 0.9rem;">Swift acquisition of NPL portfolios. We provide immediate liquidity to sellers through professional, data-driven valuations.</p>
             </div>
-            <div class="service-card reveal" style="background: var(--card-bg); padding: 50px 40px; border: 1px solid var(--border);">
+            <div class="service-card reveal" style="background: var(--card-bg); padding: 40px; border: 1px solid var(--border);">
                 <h3 style="color: var(--gold-primary); margin-bottom: 20px;">Structured Workouts</h3>
-                <p style="line-height: 1.8; color: var(--text-dim);">Specialized re-engineering of credit facilities to resolve maturity defaults while preserving equity for the long term.</p>
+                <p style="line-height: 1.8; color: var(--text-dim); font-size: 0.9rem;">Specialized re-engineering of credit facilities to resolve maturity defaults while preserving equity for the long term.</p>
             </div>
-            <div class="service-card reveal" style="background: var(--card-bg); padding: 50px 40px; border: 1px solid var(--border);">
+            <div class="service-card reveal" style="background: var(--card-bg); padding: 40px; border: 1px solid var(--border);">
                 <h3 style="color: var(--gold-primary); margin-bottom: 20px;">Strategic Advisory</h3>
-                <p style="line-height: 1.8; color: var(--text-dim);">Expert-level negotiation for pre-bankruptcy and distressed scenarios, ensuring a path to resolution for all stakeholders.</p>
+                <p style="line-height: 1.8; color: var(--text-dim); font-size: 0.9rem;">Expert-level negotiation for pre-bankruptcy and distressed scenarios, ensuring a path to resolution for all stakeholders.</p>
             </div>
         </div>
     </section>
@@ -231,11 +248,11 @@
     <section id="cases" class="section-padding" style="background: #030405; border-top: 1px solid var(--border);">
         <div class="section-header reveal">
             <p style="color: var(--gold-primary); letter-spacing: 5px; font-size: 0.75rem; margin-bottom: 10px; font-weight: 600;">PORTFOLIO HIGHLIGHTS</p>
-            <h2>Recent Transactions</h2>
+            <h2>Select Tombstones</h2>
         </div>
         <div class="grid">
             <div class="case-card reveal">
-                <span class="case-badge">East New York | 35% ROI</span>
+                <span class="case-badge">Vermont | 35% ROI</span>
                 <h3 class="case-title">645 Vermont</h3>
                 <p class="case-text">Engineered a purchase-back agreement and facilitated a third-party refinance, allowing the borrower to keep the property while generating institutional returns in 30 days.</p>
             </div>
@@ -245,7 +262,7 @@
                 <p class="case-text">Facilitated a strategic short sale mid-foreclosure, netting the borrower $110k profit and satisfying the lender exit within a 3-month window.</p>
             </div>
             <div class="case-card reveal">
-                <span class="case-badge">Bed-Stuy | 50% ROI</span>
+                <span class="case-badge">Insolvency | 50% ROI</span>
                 <h3 class="case-title">185 Bainbridge</h3>
                 <p class="case-text">Pre-empted a double bankruptcy via a voluntary asset sale. Provided the borrower with $220k in liquidity while returning high-alpha to investors.</p>
             </div>
@@ -283,10 +300,10 @@
 
     <section id="contact" class="section-padding contact-section reveal">
         <div>
-            <h2 style="font-size: 4rem; color: #fff; margin: 0;">INQUIRY</h2>
-            <h2 style="font-size: 4rem; color: var(--gold-primary); margin: 0 0 30px 0;">SUBMISSION</h2>
-            <p style="color: var(--gold-primary); font-size: 0.8rem; letter-spacing: 6px; margin-bottom: 40px; font-weight: 600;">SECURE CHANNEL</p>
-            <p style="color: var(--text-dim); line-height: 2; max-width: 500px;">Submit your portfolio details or workout request. Our acquisitions team monitors all secure transmissions in real-time.</p>
+            <h2 style="color: #fff; margin: 0;">INQUIRY</h2>
+            <h2 style="color: var(--gold-primary); margin: 0 0 20px 0;">SUBMISSION</h2>
+            <p style="color: var(--gold-primary); font-size: 0.8rem; letter-spacing: 6px; margin-bottom: 30px; font-weight: 600;">SECURE CHANNEL</p>
+            <p style="color: var(--text-dim); line-height: 1.8; font-size: 0.9rem;">Submit your portfolio details or workout request. Our acquisitions team monitors all secure transmissions in real-time.</p>
         </div>
         <div class="form-container">
             <form>
@@ -319,7 +336,7 @@
     </section>
 
     <footer>
-        &copy; Eyny | PRIVATE & CONFIDENTIAL | NY • IL • FL
+        &copy; 2026 GOTHAM LENDERS LLC. | PRIVATE & CONFIDENTIAL | NY • LDN • HK
     </footer>
 
     <script>
@@ -331,7 +348,6 @@
             mobileOverlay.classList.toggle('active');
         });
 
-        // FAQ Toggle Logic
         document.querySelectorAll('.faq-item').forEach(item => {
             item.addEventListener('click', () => {
                 item.classList.toggle('active');
