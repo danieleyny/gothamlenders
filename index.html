@@ -74,6 +74,26 @@
         .mobile-overlay.active { right: 0; }
         .mobile-overlay a { font-family: 'Playfair Display'; font-size: 1.8rem; color: white; text-decoration: none; transition: 0.3s; }
 
+        /* --- MOBILE OVERLAY CLOSE BUTTON --- */
+        .mobile-close {
+            position: absolute;
+            top: 22px;
+            right: 22px;
+            width: 44px;
+            height: 44px;
+            border: none;
+            background: transparent;
+            color: #fff;
+            font-size: 34px;
+            line-height: 44px;
+            cursor: pointer;
+            display: none; /* only show when overlay is active */
+            z-index: 2100;
+        }
+        .mobile-overlay.active .mobile-close { display: block; }
+        .mobile-close:focus { outline: 2px solid rgba(255,255,255,0.6); outline-offset: 4px; }
+
+
         /* --- HERO --- */
         .hero {
             min-height: 80vh; padding: 100px 5%; display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -199,6 +219,7 @@
     </nav>
 
     <div class="mobile-overlay" id="mobileOverlay">
+        <button class="mobile-close" id="mobileClose" aria-label="Close menu">&times;</button>
         <a href="#services">Expertise</a>
         <a href="#cases">Track Record</a>
         <a href="#faq">Resources</a>
@@ -248,11 +269,11 @@
     <section id="cases" class="section-padding" style="background: #030405; border-top: 1px solid var(--border);">
         <div class="section-header reveal">
             <p style="color: var(--gold-primary); letter-spacing: 5px; font-size: 0.75rem; margin-bottom: 10px; font-weight: 600;">PORTFOLIO HIGHLIGHTS</p>
-            <h2>Select Tombstones</h2>
+            <h2>Recent Transactions</h2>
         </div>
         <div class="grid">
             <div class="case-card reveal">
-                <span class="case-badge">Vermont | 35% ROI</span>
+                <span class="case-badge">East New York | 35% ROI</span>
                 <h3 class="case-title">645 Vermont</h3>
                 <p class="case-text">Engineered a purchase-back agreement and facilitated a third-party refinance, allowing the borrower to keep the property while generating institutional returns in 30 days.</p>
             </div>
@@ -262,7 +283,7 @@
                 <p class="case-text">Facilitated a strategic short sale mid-foreclosure, netting the borrower $110k profit and satisfying the lender exit within a 3-month window.</p>
             </div>
             <div class="case-card reveal">
-                <span class="case-badge">Insolvency | 50% ROI</span>
+                <span class="case-badge">Bed-Stuy | 50% ROI</span>
                 <h3 class="case-title">185 Bainbridge</h3>
                 <p class="case-text">Pre-empted a double bankruptcy via a voluntary asset sale. Provided the borrower with $220k in liquidity while returning high-alpha to investors.</p>
             </div>
@@ -277,11 +298,11 @@
         <div class="faq-container">
             <div class="faq-item">
                 <div class="faq-question">What is your primary investment criteria? <span class="faq-plus">+</span></div>
-                <div class="faq-answer">Gotham Lenders focuses on non-performing residential and commercial loans where there is a clear path to resolution through restructuring or strategic asset sales. We prefer portfolios ranging from $5M to $50M.</div>
+                <div class="faq-answer">Gotham Lenders focuses on maturity defauled or non-performing residential and commercial loans where there is a clear path to resolution through restructuring or strategic asset sales. We prefer portfolios ranging from $1M to $50M.</div>
             </div>
             <div class="faq-item">
                 <div class="faq-question">How quickly can Gotham Lenders close on a deal? <span class="faq-plus">+</span></div>
-                <div class="faq-answer">We pride ourselves on institutional speed. Upon receipt of a complete loan tape and initial due diligence, we can provide indicative pricing within 48 hours and closing within 10-14 business days.</div>
+                <div class="faq-answer">We pride ourselves on institutional speed. Upon receipt of a complete loan tape and initial due diligence, we can provide indicative pricing within 72 hours and closing within 10-14 business days.</div>
             </div>
             <div class="faq-item">
                 <div class="faq-question">What asset classes do you specialize in? <span class="faq-plus">+</span></div>
@@ -293,7 +314,7 @@
             </div>
             <div class="faq-item">
                 <div class="faq-question">What is the "Tape" submission process? <span class="faq-plus">+</span></div>
-                <div class="faq-answer">Institutions can submit loan tapes securely through our contact portal. Our team typically provides an initial indicative bid within 48 to 72 hours of data verification.</div>
+                <div class="faq-answer">Institutions can submit loan tapes securely through our contact portal. Our team typically provides an initial indicative bid within 72 hours of data verification.</div>
             </div>
         </div>
     </section>
@@ -307,8 +328,8 @@
         </div>
         <div class="form-container">
             <form>
-                <label class="form-label">Full Legal Name</label>
-                <input type="text" required>
+                <label class="form-label">Full Name</label>
+                <input type="text" required placeholder="John Smith">
 
                 <label class="form-label">Email Address (Required)</label>
                 <input type="email" required placeholder="name@firm.com">
@@ -336,16 +357,40 @@
     </section>
 
     <footer>
-        &copy; 2026 GOTHAM LENDERS LLC. | PRIVATE & CONFIDENTIAL | NY • LDN • HK
+        &copy; Eyny. | PRIVATE & CONFIDENTIAL | NY • IL • FL
     </footer>
 
     <script>
         const menuTrigger = document.getElementById('menuTrigger');
         const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileClose = document.getElementById('mobileClose');
+
+        const closeMobileMenu = () => {
+            menuTrigger.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+        };
 
         menuTrigger.addEventListener('click', () => {
-            menuTrigger.classList.toggle('active');
-            mobileOverlay.classList.toggle('active');
+            const willOpen = !mobileOverlay.classList.contains('active');
+            menuTrigger.classList.toggle('active', willOpen);
+            mobileOverlay.classList.toggle('active', willOpen);
+        });
+
+        
+
+        // Close button (X)
+        mobileClose.addEventListener('click', closeMobileMenu);
+
+        // Close menu when a link is clicked
+        mobileOverlay.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', closeMobileMenu);
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileOverlay.classList.contains('active')) {
+                closeMobileMenu();
+            }
         });
 
         document.querySelectorAll('.faq-item').forEach(item => {
